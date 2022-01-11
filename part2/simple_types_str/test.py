@@ -16,7 +16,7 @@ from ttools.skyprotests.tests import SkyproTestCase  # noqa: E402
 
 class ExceptionTestCase(SkyproTestCase):
     def setUp(self):
-        self.expected = solution.greetings.__annotations__
+        self.expected = solution.greeting.__annotations__
         self.annotations = main.greeting.__annotations__
 
     def test_func_has_annotations(self):

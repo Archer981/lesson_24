@@ -18,7 +18,7 @@ class Person:
         last_name: str,
         birthday: datetime.date,
         middle_name: Optional[str] = None,
-        skills: List[int] = None
+        skills: List[str] = None
     ):
         self.first_name = first_name
         self.last_name = last_name

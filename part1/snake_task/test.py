@@ -23,7 +23,7 @@ class ExceptionTestCase(SkyproTestCase):
             f"%@Проверьте, что функция {func_name} определена в модуле."
         )
 
-        result = func("")
+        result = func("yeah! python is awesome ")
         self.assertIsInstance(
             result, bool,
             "%@Проверьте, что функция возвращает результат типа boolean."
