@@ -17,8 +17,11 @@ letters = [
 
 
 def get_plates(letters):
-    # TODO напишите ваш код здесь
-    pass
+    redex = re.compile(r'[а-я]{1,2}\d{3}[а-я]{0,2}_?\d{2,3}')
+    for letter in letters:
+        search_result = redex.findall(letter)
+        for number in search_result:
+            yield number
 
 
 if __name__ == "__main__":

@@ -6,9 +6,25 @@
 from functools import wraps
 
 
-def retry():
-    # TODO напишите код декоратора здесь
-    pass
+def retry(n):
+    def decor(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            counter = 0
+            breaks = 0
+            while counter < n:
+                try:
+                    func(*args, **kwargs)
+                except Exception as e:
+                    if breaks < 4:
+                        print('exc_has_appeared')
+                        breaks += 1
+                    else:
+                        raise e
+                counter += 1
+            return
+        return wrapper
+    return decor
 
 
 # Код для самопроверки

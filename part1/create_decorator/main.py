@@ -6,8 +6,15 @@ from functools import wraps
 
 
 def logger(func):
-    # TODO напишите функцию-декоратор здесь
-    pass
+    def wrapper(*args, **kwargs):
+        try:
+            func(*args, **kwargs)
+        except:
+            print('exc_has_appeared')
+        else:
+            print(func)
+        return func
+    return wrapper
 
 
 # Код для самопроверки

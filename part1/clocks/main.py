@@ -13,7 +13,7 @@ import re
 
 
 def clock_checker(input_str):
-    regex = re.compile(r"regular_value")
+    regex = re.compile(r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}")
     m = regex.match(input_str)
     return bool(m)
 
