@@ -7,11 +7,12 @@
 # На выходе функция должна вернуть объект User,
 # если в словаре есть пользователь с таким id или вернуть None.
 # Подсказка: для решения можно использовать Option.
+from typing import Optional, Dict
 
 
 class User:
     pass
 
 
-def get_user_by_id(users, user_id):
+def get_user_by_id(users: Dict[int, User], user_id: int) -> Optional[User]:
     return users.get(user_id)

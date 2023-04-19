@@ -4,6 +4,7 @@
 # Для удобства мы перенесли переменную vk_data в другой файл,
 # Пожалуйста, придерживайтесь нейминга, определенного в условиях задачи.
 # Данная задача должна решаться в несколько этапов:
+import marshmallow_dataclass
 
 # 1 Этап. Формируем датаклассы для хранения данных.
 #    - VkData - Наши сведения
@@ -41,20 +42,66 @@
 # при написании аннотаций используйте, пожалуйста, библиотеку typing
 
 from vk_data import vk_data
+from dataclasses import dataclass
+from typing import Optional, List, Dict, Tuple, Any, Set
 
-# TODO здесь можно начинать =)
+
+@dataclass
+class Occupation:
+    id: int
+    type: str
 
 
-def get_university_pairs(data):
-    items = data["response"]["items"]
-    universities = {}
-    for user in items:
-        university_set = set()
-        for university in user["universities"]:
-            university_id = university["id"]
+@dataclass
+class OnlineInfo:
+    visible: bool
+    last_seen: int
+
+
+@dataclass
+class University:
+    chair_name: str
+    id: int
+    name: str
+
+
+@dataclass
+class User:
+    id: int
+    first_name: str
+    last_name: str
+    online_info: OnlineInfo
+    occupation: Dict[str, Occupation]
+    universities: List[University]
+
+
+@dataclass
+class VkResponse:
+    count: int
+    items: List[User]
+
+
+@dataclass
+class VkData:
+    response: VkResponse
+
+
+VkDataSchema = marshmallow_dataclass.class_schema(VkData)
+
+
+def get_vk_data(data):
+    return VkDataSchema().load(data)
+
+
+def get_university_pairs(data: VkData) -> List[Tuple[Any, Any]]:
+    universities: Dict[int, Dict[str, str | int]] = {}
+    for user in data.response.items:
+        university_set: Set[int] = set()
+        for university in user.universities:
+            university_id = university.id
             if university_id not in universities:
                 universities[university_id] = {
-                    "name": university["name"],
+                    "name": university.name,
                     "count": 0
                 }
             if university_id not in university_set:
@@ -70,4 +117,4 @@ def get_university_pairs(data):
 
 
 if __name__ == "__main__":
-    print(get_university_pairs(vk_data))
+    print(get_university_pairs(get_vk_data(vk_data)))

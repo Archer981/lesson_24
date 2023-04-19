@@ -86,12 +86,14 @@ vk_data = {
    }
 }
 
-VkDataSchema = "pass"  # TODO используйте marshmallow_dataclass для инициализации схемы здесь
+VkDataSchema = marshmallow_dataclass.class_schema(VkData)
 
 
 def get_vk_data(data) -> VkData:
-    # TODO напишите код функции здесь. Не забудьте использовать переменную VkDataSchema
-    pass
+    try:
+        return VkDataSchema().load(data)
+    except:
+        raise ValueError
 
 
 if __name__ == "__main__":

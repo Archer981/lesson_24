@@ -5,23 +5,32 @@
 # после создания объекта Person значение skills будет []
 
 # Подсказка: для решения задачи нужно использовать:
-# from dataclasses import field
+from dataclasses import field, dataclass
 
 
 import datetime
 from typing import Optional, List
 
 
+@dataclass
 class Person:
-    def __init__(
-        self, first_name: str,
-        last_name: str,
-        birthday: datetime.date,
-        middle_name: Optional[str] = None,
-        skills: List[str] = None
-    ):
-        self.first_name = first_name
-        self.last_name = last_name
-        self.birthday = birthday
-        self.middle_name = middle_name
-        self.skills = skills or []
+    first_name: str
+    last_name: str
+    birthday: datetime.date
+    middle_name: Optional[str] = None
+    skills: List[str] = field(default_factory=list)
+
+
+# class Person:
+#     def __init__(
+#         self, first_name: str,
+#         last_name: str,
+#         birthday: datetime.date,
+#         middle_name: Optional[str] = None,
+#         skills: List[str] = None
+#     ):
+#         self.first_name = first_name
+#         self.last_name = last_name
+#         self.birthday = birthday
+#         self.middle_name = middle_name
+#         self.skills = skills or []
